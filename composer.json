@@ -1,0 +1,43 @@
+{
+    "name": "codeat3/foaas-client",
+    "description": "A PHP client for FOAAS service",
+    "keywords": [
+        "codeat3",
+        "foaas-client"
+    ],
+    "homepage": "https://github.com/codeat3/foaas-client",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Swapnil Sarwe",
+            "email": "swapnilsarwe@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Codeat3\\FoaasClient\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Codeat3\\FoaasClient\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
