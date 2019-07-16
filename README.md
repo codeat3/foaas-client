@@ -5,7 +5,7 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/codeat3/foaas-client.svg?style=flat-square)](https://scrutinizer-ci.com/g/codeat3/foaas-client)
 [![Total Downloads](https://img.shields.io/packagist/dt/codeat3/foaas-client.svg?style=flat-square)](https://packagist.org/packages/codeat3/foaas-client)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+A PHP Client of [FOAAS](https://foaas.com/)
 
 ## Installation
 
@@ -18,7 +18,10 @@ composer require codeat3/foaas-client
 ## Usage
 
 ``` php
-// Usage description here
+use Codeat3\FoaasClient\FoaasClient;
+
+$foaasClient = new FoaasClient();
+echo $foaasClient->what('John')->getAsText();
 ```
 
 ### Testing

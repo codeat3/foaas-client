@@ -1,3 +1,6 @@
 .php_cs.cache
 vendor/
 build/
+scratch.php
+scratch.md
+.vscode/

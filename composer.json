@@ -20,6 +20,8 @@
         "guzzlehttp/guzzle": "^6.3"
     },
     "require-dev": {
+        "nunomaduro/phpinsights": "^1.7",
+        "phpstan/phpstan": "^0.11.12",
         "phpunit/phpunit": "^7.0"
     },
     "autoload": {
