@@ -7,13 +7,15 @@ use Codeat3\FoaasClient\Response\XmlResponse;
 use Codeat3\FoaasClient\Response\HtmlResponse;
 use Codeat3\FoaasClient\Response\JsonResponse;
 use Codeat3\FoaasClient\Response\TextResponse;
+use Codeat3\FoaasClient\Response\ArrayResponse;
+use Codeat3\FoaasClient\ResponseFilters\Filter;
+use Codeat3\FoaasClient\ResponseFilters\NoFilter;
 use Codeat3\FoaasClient\Exceptions\InvalidArguments;
 use Codeat3\FoaasClient\Exceptions\InvalidMethodCall;
 
 class FoaasClient
 {
     protected static $endpoints;
-    protected static $guzzleClient;
 
     protected $responseType;
     protected static $responseAs;
@@ -25,29 +27,7 @@ class FoaasClient
         'json' => JsonResponse::class,
         'text' => TextResponse::class,
         'html' => HtmlResponse::class,
-    ];
-
-    protected $decencyLevelMap = [
-        'nil' => [
-            'search' => '',
-            'replace' => '',
-        ],
-        'low' => [
-            'search' => 'fuck',
-            'replace'=> 'f*ck',
-        ],
-        'medium' => [
-            'search' => 'fuck',
-            'replace'=> 'f*#k',
-        ],
-        'high' => [
-            'search' => 'fuck',
-            'replace'=> 'f*#$',
-        ],
-        'extreme' => [
-            'search' => 'fuck',
-            'replace'=> '!*#$',
-        ]
+        'array' => ArrayResponse::class,
     ];
 
     protected $method;
@@ -59,7 +39,7 @@ class FoaasClient
         $this->decencyLevel = $config['decency'] ?? null;
         $this->responseType = $config['responseAs'] ?? null;
 
-        $this->responseTypeMap = array_merge($this->responseTypeMap, ResponseFormatValidator::validate($config['responseFormats'] ?? null));
+        $this->responseTypeMap = array_merge($this->responseTypeMap, ResponseFormatValidator::validate($config['responseFormats'] ?? []));
     }
 
     private function getResponseType()
@@ -67,17 +47,19 @@ class FoaasClient
         if (is_null(self::$responseAs)) {
             if (array_key_exists($this->responseType, $this->responseTypeMap)) {
                 self::$responseAs = new $this->responseTypeMap[$this->responseType]();
+            } else {
+                return new $this->responseTypeMap['json']();
             }
-            return new $this->responseTypeMap['json']();
         }
         return self::$responseAs;
     }
 
     public function guzzleClient()
     {
+        $headers = $this->getResponseType()->getHeaders();
         return new Client([
             'headers' => [
-                'Accept' => $this->getResponseType()->getHeaders()
+                'Accept' => $headers
             ],
         ]);
     }
@@ -87,7 +69,6 @@ class FoaasClient
         // check if the method is supported
         if (array_key_exists($method, $this->getAvailableEndpoints())) {
             $argumentsExpected = $this->getAvailableEndpoints()[$method]['fields'];
-            self::$guzzleClient = null;
             if (count($arguments) === count($argumentsExpected)) {
                 $this->url = UrlBuilder::buildUrl($method, $arguments);
             } else {
@@ -103,6 +84,7 @@ class FoaasClient
     {
         if (is_null(self::$endpoints)) {
             $response = json_decode($this->apiCall(UrlBuilder::buildUrl('operations')), true);
+            self::$responseAs = null;
             foreach ($response as $operation) {
                 $arrUrl = array_filter(explode("/", $operation['url']));
                 $endpoint = $arrUrl[1];
@@ -118,6 +100,7 @@ class FoaasClient
 
     public function apiCall($path)
     {
+        // echo $path . PHP_EOL;
         $response = $this->guzzleClient()->get($path);
         return $response->getBody()->getContents();
     }
@@ -127,31 +110,50 @@ class FoaasClient
      *
      * @return string
      */
-    public function get():string
+    public function get()
     {
         $apiResponse = $this->apiCall($this->url);
-        return $this->getResponseType()->response($apiResponse);
+
+        $filter = (empty($this->decencyLevel))
+            ? new NoFilter()
+            : new Filter($this->decencyLevel);
+
+        return $this->getResponseType()->response($apiResponse, $filter);
     }
 
-    /**
-     * An alias to get the response as json string
-     *
-     * @return string
-     */
-    public function getAsJson():string
+    private function resetResponseType($type)
     {
-        $this->responseType = 'json';
+        self::$responseAs = null;
+        $this->responseType = $type;
+    }
+
+    public function getAsJson(): string
+    {
+        $this->resetResponseType('json');
         return $this->get();
     }
 
-    /**
-     * An alias to get the response as XML string
-     *
-     * @return string
-     */
-    public function getAsXml():string
+    public function getAsXml(): string
     {
-        $this->responseType = 'xml';
+        $this->resetResponseType('xml');
+        return $this->get();
+    }
+
+    public function getAsArray(): array
+    {
+        $this->resetResponseType('array');
+        return $this->get();
+    }
+
+    public function getAsText():string
+    {
+        $this->resetResponseType('text');
+        return $this->get();
+    }
+
+    public function getAsHtml():string
+    {
+        $this->resetResponseType('html');
         return $this->get();
     }
 }

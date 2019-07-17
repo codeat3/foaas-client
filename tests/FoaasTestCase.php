@@ -3,7 +3,6 @@
 namespace Codeat3\FoaasClient\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Codeat3\FoaasClient\FoaasClient;
 
 class FoaasTestCase extends TestCase
 {
@@ -12,6 +11,5 @@ class FoaasTestCase extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->client  = new FoaasClient();
     }
 }

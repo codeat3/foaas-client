@@ -1,6 +1,8 @@
 <?php
 namespace Codeat3\FoaasClient\Response;
 
+use Codeat3\FoaasClient\ResponseFilters\FoaasFilter;
+
 class XmlResponse implements FoaasResponse
 {
     /**
@@ -27,8 +29,8 @@ class XmlResponse implements FoaasResponse
      *
      * @return string
      */
-    public function response(string $response): string
+    public function response(string $response, FoaasFilter $filter)
     {
-        return $response;
+        return $filter->filter($response);
     }
 }

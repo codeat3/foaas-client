@@ -3,14 +3,8 @@ namespace Codeat3\FoaasClient\Response;
 
 use Codeat3\FoaasClient\ResponseFilters\FoaasFilter;
 
-interface FoaasResponse
+class ArrayResponse extends JsonResponse
 {
-    /**
-     * Returns the header type
-     *
-     * @return string
-     */
-    public function getHeaders(): string;
 
     /**
      * Returns a response
@@ -19,5 +13,8 @@ interface FoaasResponse
      *
      * @return string
      */
-    public function response(string $response, FoaasFilter $filter);
+    public function response(string $response, FoaasFilter $filter)
+    {
+        return json_decode($filter->filter($response), true);
+    }
 }

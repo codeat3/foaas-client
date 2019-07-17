@@ -2,8 +2,9 @@
 
 namespace Codeat3\FoaasClient\Tests;
 
-use Codeat3\FoaasClient\Exceptions\InvalidArgumentsException;
-use Codeat3\FoaasClient\Exceptions\InvalidMethodCallException;
+use Codeat3\FoaasClient\FoaasClient;
+use Codeat3\FoaasClient\Exceptions\InvalidArguments;
+use Codeat3\FoaasClient\Exceptions\InvalidMethodCall;
 
 class FoaasExceptionsTest extends FoaasTestCase
 {
@@ -11,14 +12,14 @@ class FoaasExceptionsTest extends FoaasTestCase
     /** @test */
     public function is_invalid_arguments_exception_caught()
     {
-        $this->expectException(InvalidArgumentsException::class);
-        $this->client->version('latest');
+        $this->expectException(InvalidArguments::class);
+        (new FoaasClient())->version('latest');
     }
 
     /** @test */
     public function is_invalid_method_exception_caught()
     {
-        $this->expectException(InvalidMethodCallException::class);
-        $this->client->d934jkfdsof9();
+        $this->expectException(InvalidMethodCall::class);
+        (new FoaasClient())->d934jkfdsof9();
     }
 }
