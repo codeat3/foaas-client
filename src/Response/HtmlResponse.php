@@ -1,4 +1,5 @@
 <?php
+
 namespace Codeat3\FoaasClient\Response;
 
 use Codeat3\FoaasClient\ResponseFilters\FoaasFilter;
@@ -6,14 +7,14 @@ use Codeat3\FoaasClient\ResponseFilters\FoaasFilter;
 class HtmlResponse implements FoaasResponse
 {
     /**
-     * A header string for the request
+     * A header string for the request.
      *
      * @var string
      */
     protected $acceptHeader = 'text/html';
 
     /**
-     * Returns the header type
+     * Returns the header type.
      *
      * @return string
      */
@@ -23,7 +24,7 @@ class HtmlResponse implements FoaasResponse
     }
 
     /**
-     * Returns a response
+     * Returns a response.
      *
      * @param string $response
      *
