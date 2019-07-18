@@ -108,6 +108,7 @@ class FoaasClient
     protected static $endpoints;
 
     protected $responseType;
+
     protected static $responseAs;
 
     protected $url;
@@ -121,7 +122,9 @@ class FoaasClient
     ];
 
     protected $method;
+
     protected $arguments;
+
     protected $decencyLevel;
 
     public function __construct(array $config = [])
