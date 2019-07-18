@@ -1,13 +1,13 @@
 <?php
+
 namespace Codeat3\FoaasClient\Response;
 
 use Codeat3\FoaasClient\ResponseFilters\FoaasFilter;
 
 class ArrayResponse extends JsonResponse
 {
-
     /**
-     * Returns a response
+     * Returns a response.
      *
      * @param string $response
      *

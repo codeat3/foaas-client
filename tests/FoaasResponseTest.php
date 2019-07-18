@@ -6,7 +6,6 @@ use Codeat3\FoaasClient\FoaasClient;
 
 class FoaasResponseTest extends FoaasTestCase
 {
-
     /** @test */
     public function is_response_array()
     {

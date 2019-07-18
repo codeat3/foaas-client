@@ -8,7 +8,6 @@ use Codeat3\FoaasClient\Exceptions\InvalidMethodCall;
 
 class FoaasExceptionsTest extends FoaasTestCase
 {
-
     /** @test */
     public function is_invalid_arguments_exception_caught()
     {

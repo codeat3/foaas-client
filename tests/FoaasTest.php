@@ -6,7 +6,6 @@ use Codeat3\FoaasClient\FoaasClient;
 
 class FoaasTest extends FoaasTestCase
 {
-
     /** @test */
     public function is_api_working()
     {

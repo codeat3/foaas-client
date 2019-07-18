@@ -1,4 +1,5 @@
 <?php
+
 namespace Codeat3\FoaasClient;
 
 class UrlBuilder
@@ -6,7 +7,7 @@ class UrlBuilder
     private const API_ENDPOINT = 'https://foaas.com';
 
     /**
-     * Build Api Url
+     * Build Api Url.
      *
      * @param string $method
      * @param array $fields
@@ -15,10 +16,11 @@ class UrlBuilder
      */
     public static function buildUrl(string $method, array $fields = []): string
     {
-        $url = '/' . $method;
+        $url = '/'.$method;
         if (count($fields) > 0) {
-            $url .= '/' . implode('/', $fields);
+            $url .= '/'.implode('/', $fields);
         }
-        return self::API_ENDPOINT . $url;
+
+        return self::API_ENDPOINT.$url;
     }
 }

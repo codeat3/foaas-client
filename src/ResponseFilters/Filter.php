@@ -1,7 +1,6 @@
 <?php
-namespace Codeat3\FoaasClient\ResponseFilters;
 
-use Codeat3\FoaasClient\ResponseFilters\FoaasFilter;
+namespace Codeat3\FoaasClient\ResponseFilters;
 
 class Filter implements FoaasFilter
 {
@@ -21,7 +20,7 @@ class Filter implements FoaasFilter
         'extreme' => [
             'search' => 'fuck',
             'replace'=> '!*#$',
-        ]
+        ],
     ];
 
     protected $decencyLevel;

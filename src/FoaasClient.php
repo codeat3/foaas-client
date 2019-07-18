@@ -141,15 +141,17 @@ class FoaasClient
                 return new $this->responseTypeMap['json']();
             }
         }
+
         return self::$responseAs;
     }
 
     public function guzzleClient()
     {
         $headers = $this->getResponseType()->getHeaders();
+
         return new Client([
             'headers' => [
-                'Accept' => $headers
+                'Accept' => $headers,
             ],
         ]);
     }
@@ -167,6 +169,7 @@ class FoaasClient
         } else {
             throw new InvalidMethodCall();
         }
+
         return $this;
     }
 
@@ -176,7 +179,7 @@ class FoaasClient
             $response = json_decode($this->apiCall(UrlBuilder::buildUrl('operations')), true);
             self::$responseAs = null;
             foreach ($response as $operation) {
-                $arrUrl = array_filter(explode("/", $operation['url']));
+                $arrUrl = array_filter(explode('/', $operation['url']));
                 $endpoint = $arrUrl[1];
                 $fields = array_slice($arrUrl, 1);
                 self::$endpoints[$endpoint] = [
@@ -185,6 +188,7 @@ class FoaasClient
                 ];
             }
         }
+
         return self::$endpoints;
     }
 
@@ -192,11 +196,12 @@ class FoaasClient
     {
         // echo $path . PHP_EOL;
         $response = $this->guzzleClient()->get($path);
+
         return $response->getBody()->getContents();
     }
 
     /**
-     * A method to get the response
+     * A method to get the response.
      *
      * @return string
      */
@@ -220,30 +225,35 @@ class FoaasClient
     public function getAsJson(): string
     {
         $this->resetResponseType('json');
+
         return $this->get();
     }
 
     public function getAsXml(): string
     {
         $this->resetResponseType('xml');
+
         return $this->get();
     }
 
     public function getAsArray(): array
     {
         $this->resetResponseType('array');
+
         return $this->get();
     }
 
     public function getAsText():string
     {
         $this->resetResponseType('text');
+
         return $this->get();
     }
 
     public function getAsHtml():string
     {
         $this->resetResponseType('html');
+
         return $this->get();
     }
 }

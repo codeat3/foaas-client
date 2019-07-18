@@ -1,4 +1,5 @@
 <?php
+
 namespace Codeat3\FoaasClient\ResponseFilters;
 
 interface FoaasFilter
