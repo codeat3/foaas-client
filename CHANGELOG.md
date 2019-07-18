@@ -2,6 +2,12 @@
 
 All notable changes to `foaas-client` will be documented in this file
 
+## 1.0.1 - 2019-07-18
+
+##### Updates
+* added typehint for available methods to the client
+* added travis-ci yaml
+
 ## 1.0.0 - 2019-07-12
 
 ##### Initial Release
