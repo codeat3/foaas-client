@@ -2,16 +2,16 @@
 
 namespace Codeat3\FoaasClient;
 
-use GuzzleHttp\Client;
-use Codeat3\FoaasClient\Response\XmlResponse;
+use Codeat3\FoaasClient\Exceptions\InvalidArguments;
+use Codeat3\FoaasClient\Exceptions\InvalidMethodCall;
+use Codeat3\FoaasClient\Response\ArrayResponse;
 use Codeat3\FoaasClient\Response\HtmlResponse;
 use Codeat3\FoaasClient\Response\JsonResponse;
 use Codeat3\FoaasClient\Response\TextResponse;
-use Codeat3\FoaasClient\Response\ArrayResponse;
+use Codeat3\FoaasClient\Response\XmlResponse;
 use Codeat3\FoaasClient\ResponseFilters\Filter;
 use Codeat3\FoaasClient\ResponseFilters\NoFilter;
-use Codeat3\FoaasClient\Exceptions\InvalidArguments;
-use Codeat3\FoaasClient\Exceptions\InvalidMethodCall;
+use GuzzleHttp\Client;
 
 /**
  * @method anyway(string $company, string $from)
@@ -176,7 +176,7 @@ class FoaasClient
         return $this;
     }
 
-    public function getAvailableEndpoints() : array
+    public function getAvailableEndpoints(): array
     {
         if (is_null(self::$endpoints)) {
             $response = json_decode($this->apiCall(UrlBuilder::buildUrl('operations')), true);
@@ -246,14 +246,14 @@ class FoaasClient
         return $this->get();
     }
 
-    public function getAsText():string
+    public function getAsText(): string
     {
         $this->resetResponseType('text');
 
         return $this->get();
     }
 
-    public function getAsHtml():string
+    public function getAsHtml(): string
     {
         $this->resetResponseType('html');
 

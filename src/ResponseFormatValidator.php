@@ -2,8 +2,8 @@
 
 namespace Codeat3\FoaasClient;
 
-use Codeat3\FoaasClient\Response\FoaasResponse;
 use Codeat3\FoaasClient\Exceptions\InvalidResponse;
+use Codeat3\FoaasClient\Response\FoaasResponse;
 
 class ResponseFormatValidator
 {
