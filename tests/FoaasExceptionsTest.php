@@ -2,9 +2,9 @@
 
 namespace Codeat3\FoaasClient\Tests;
 
-use Codeat3\FoaasClient\FoaasClient;
 use Codeat3\FoaasClient\Exceptions\InvalidArguments;
 use Codeat3\FoaasClient\Exceptions\InvalidMethodCall;
+use Codeat3\FoaasClient\FoaasClient;
 
 class FoaasExceptionsTest extends FoaasTestCase
 {
